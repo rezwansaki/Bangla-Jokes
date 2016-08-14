@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<!--
+Application Name : 'Bangla Jokes'.
+Application Version : 1.0.0
+Developed Date : 14-January-2015
+Last Update : 14-January-2015 
+Cordova Version : Cordova 3.X
+Tested Device : 
+Tested OS : Android 4.x 
+Need to run : Bangla unicode font and Android OS 
+
+Developer's Infomration :
+Md. Rezwan Saki Alin
+http://www.alinsworld.com
+rezwansaki@gmail.com 
+-->
+<html>
+    <head>
+       
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+        <title>বাংলা জোকস</title>
+
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+        <!-- Intel XDK Essential -->
+        <script src="intelxdk.js"></script>         <!-- phantom library, needed for Intel XDK api calls -->
+        <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls -->
+        <script src="xhr.js"></script>              <!-- phantom library, needed for Intel XDK CORS -->
+
+        <script>
+            function onDeviceReady() {
+                if( navigator.splashscreen && navigator.splashscreen.hide ) {   // Cordova API detected
+                    navigator.splashscreen.hide() ;
+                }
+                if( window.intel && intel.xdk && intel.xdk.device ) {           // Intel XDK device API detected, but...
+                    if( intel.xdk.device.hideSplashScreen )                     // ...hideSplashScreen() is inside the base plugin
+                        intel.xdk.device.hideSplashScreen() ;
+                }
+            }
+            document.addEventListener("intel.xdk.device.ready", onDeviceReady, false) ;
+        </script>
+        <!-- /Intel XDK Essential -->
+        
+        
+        <!-- ==================== My own JavaScript and CSS code =========================== -->
+        
+        <!-- Exit function -->   
+       <!-- <script type="text/javascript">
+
+            function onLoad()
+            {
+                document.addEventListener("deviceready", onDeviceReady, true);
+            }
+
+            function exitFromApp()
+            {
+                navigator.app.exitApp();
+            }
+        </script>      -->       
+        
+                                                
+        <style>
+            .ui-page-theme-b .my-header {
+                /*background-color: #03793a;*/
+                background: -webkit-linear-gradient(#05a550, #003c1c); /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(#05a550, #003c1c); /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(#05a550, #003c1c); /* For Firefox 3.6 to 15 */
+                background: linear-gradient(#05a550, #003c1c); /* Standard syntax (must be last) */
+                padding-bottom: 10px;
+            }
+
+            .ui-page-theme-b .my-header>.ui-title {
+                color: #6cf0dc;
+                padding: 8px 0 0 0;
+                margin: 0;
+                font-size: 20px;
+            }
+            
+            .ui-page-theme-b .ui-input-search { /* search category */
+                background-color: #037967;
+                margin: 15px 5% 0 5%;
+            }
+            
+            .ui-page-theme-b #my-ul { /* search category */
+                background-color: #037967;
+            }
+
+            .ui-page-theme-b .cat-list {
+                width: 50%; /* size of the category list item */
+                margin: 0; /* no margin for category list item */
+            }
+
+            .ui-page-theme-b .cat-list .list-link { /* colour for category list item */
+                background-color: #1e9d98;
+            }
+            .ui-page-theme-b .cat-list .list-link:hover { /* colour for category list item */
+                background-color: #1db9b1;
+            }
+            
+            .ui-page-theme-b .cat-list .list-link { /* colour for category list item */
+                text-shadow: none;
+                font-weight: normal;
+                font-size: 18px;
+                padding: 8px 0;
+                border-right: 1px #2c2a2a solid;
+            }
+
+            .ui-page-theme-b .ui-content {
+                padding: 0;
+            }
+
+            .ui-page-theme-b #my-wrapper {
+                background-color: #252525; /* colour for wrapper of the category list items */
+                margin: 0;
+            }
+
+            .ui-page-theme-b .footer-nav {
+                /*background-color:#03793a;*/
+                background: -webkit-linear-gradient(#05a550, #003c1c); /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(#05a550, #003c1c); /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(#05a550, #003c1c); /* For Firefox 3.6 to 15 */
+                background: linear-gradient(#05a550, #003c1c); /* Standard syntax (must be last) */
+            }
+
+            .ui-page-theme-b .footer-nav:hover {
+                background-color:#069d4c;
+            }
+
+            .ui-page-theme-b .my-footer>.ui-title {
+                color: #6cf0dc;
+                text-shadow: none;
+                padding: 5px 0 0 0;
+                margin: 0;
+                font-size: 15px;
+            }
+            
+            /* info box */
+            .ui-page-theme-b .info-box {
+                background-color: #42a342;
+                width: 85%;
+                padding: 15px;
+                margin: 10px auto;
+                border-radius: 8px;
+                text-shadow: none;
+            }
+            
+            .ui-page-theme-b .info-title {
+                color: #7cedc6;
+                font-size: 18px;
+                text-align: left;
+                padding-bottom: 10px;
+            }
+            
+            .ui-page-theme-b .info-desc {
+                color: #ffffff;
+                font-size: 15px;
+                text-align: left;
+                padding-bottom: 30px;
+            }
+
+            /* button */
+            .ui-page-theme-b .ui-icon-grid {
+                background-color: green;
+            }
+
+            .ui-page-theme-b .ui-icon-grid:hover {
+                background-color: #058e05;
+            }
+            
+            /* Footer list button */
+            .ui-page-theme-b #btnFirst {
+                background-color: #03793a;
+            }
+            .ui-page-theme-b #btnFirst:hover {
+                background-color: #069d4c;
+            }
+
+            .ui-page-theme-b #btnMiddle {
+                background-color: #03793a;
+            }
+            .ui-page-theme-b #btnMiddle:hover {
+                background-color: #069d4c;
+            }
+
+            .ui-page-theme-b #btnLast {
+                background-color: #03793a;
+            }
+            .ui-page-theme-b #btnLast:hover {
+                background-color: #069d4c;
+            } /* /Footer list button */
+            /* /button */
+        </style>    
+        
+                                            
+
+        <!-- Get total categories with total jokes -->
+        <script>
+            function loadXMLDoc(filename)
+            {
+                if (window.XMLHttpRequest)
+                {
+                    xhttp=new XMLHttpRequest();
+                }
+                else // code for IE5 and IE6
+                {
+                    xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xhttp.open("GET",filename,false);
+                xhttp.send();
+                return xhttp.responseXML;
+            } 
+            
+            
+            /* Convert English to Bangla for Total Jokes */
+            var bang_number = '';
+            function en_to_ben_number_conversion(en_number) {
+                for (var i = 0; i < en_number.length; i++) {
+
+                    if (en_number[i] == "0")
+                        bang_number = bang_number + '০';
+                    if (en_number[i] == "1")
+                        bang_number = bang_number + '১';
+                    if (en_number[i] == "2")
+                        bang_number = bang_number + '২';
+                    if (en_number[i] == "3")
+                        bang_number = bang_number + '৩';
+                    if (en_number[i] == "4")
+                        bang_number = bang_number + '৪';
+                    if (en_number[i] == "5")
+                        bang_number = bang_number + '৫';
+                    if (en_number[i] == "6")
+                        bang_number = bang_number + '৬';
+                    if (en_number[i] == "7")
+                        bang_number = bang_number + '৭';
+                    if (en_number[i] == "8")
+                        bang_number = bang_number + '৮';
+                    if (en_number[i] == "9")
+                        bang_number = bang_number + '৯';
+                }
+
+                return bang_number;
+            } /* /Convert English to Bangla for Total Jokes */
+            
+            /* Convert English to Bangla for Total Category */
+            var bang_number2 = '';
+            function en_to_ben_number2_conversion(en_number2) {
+                for (var i = 0; i < en_number2.length; i++) {
+
+                    if (en_number2[i] == "0")
+                        bang_number2 = bang_number2 + '০';
+                    if (en_number2[i] == "1")
+                        bang_number2 = bang_number2 + '১';
+                    if (en_number2[i] == "2")
+                        bang_number2 = bang_number2 + '২';
+                    if (en_number2[i] == "3")
+                        bang_number2 = bang_number2 + '৩';
+                    if (en_number2[i] == "4")
+                        bang_number2 = bang_number2 + '৪';
+                    if (en_number2[i] == "5")
+                        bang_number2 = bang_number2 + '৫';
+                    if (en_number2[i] == "6")
+                        bang_number2 = bang_number2 + '৬';
+                    if (en_number2[i] == "7")
+                        bang_number2 = bang_number2 + '৭';
+                    if (en_number2[i] == "8")
+                        bang_number2 = bang_number2 + '৮';
+                    if (en_number2[i] == "9")
+                        bang_number2 = bang_number2 + '৯';
+                }
+
+                return bang_number2;
+            } /* /Convert English to Bangla for Total Category */
+            
+            /* Total jokes section */
+            function totalJokes()  /* check total fname and total category, because those will be same */
+            {
+                var fname='';
+                var fname = ["ayin-adalot","daktarrogi","drunk-jokes","gopalvar","guest","husband-wife", "khela", "lovejokes", "nasirddinhojja", "office", "pachmishali","politics-jokes", "satroshikkhok", "studyjokes", "interview", "grihokorta-vritto", "projukti", "protibeshi"];
+                
+                var totalCategory=0;
+                var totalJokes=0;
+                var totalCategoryString = "";
+                var totalJokesString = "";
+                bang_number = ""; /* This is essential to avoid wrong value */
+                bang_number2 = ""; /* This is essential to avoid wrong value */
+                
+                for (f=0;f<fname.length;f++)
+                {
+                    xmlDoc=loadXMLDoc("data/" + fname[f] + ".xml");
+                    
+                    totalCategory = totalCategory + 1;
+
+                    x=xmlDoc.getElementsByTagName("jokes");
+
+                    id=xmlDoc.getElementsByTagName("id"); 
+                    //title=xmlDoc.getElementsByTagName("title"); 
+
+                    for (i=0;i<id.length;i++)
+                    {
+                        totalJokes = totalJokes + 1;
+                    }
+                } 
+                
+                totalCategoryString = "'" + totalCategory + "'";
+                totalJokesString = "'" + totalJokes + "'";
+                
+                $(".totalcaj").html("সর্বমোট ক্যাটেগরি : " + en_to_ben_number2_conversion(totalCategoryString) + " টি।" + "</br>" + "সর্বমোট  কৌতুক : " + en_to_ben_number_conversion(totalJokesString) + " টি।");
+            }
+        </script> <!-- /Get total categories with total jokes -->                                   
+
+        
+        <!-- ==================== /My own JavaScript and CSS code =========================== -->
+        
+    </head>
+
+    <body>
+        
+        <!-- /click to get index of list item -->
+
+        <div data-role="page" data-theme="b" id="details" style="background-color:#037967;">
+            <div data-role="header" class="my-header" data-position="fixed">
+                <img id="imgheadericon" src="images/logo.png" class="ui-btn-left"/>  
+                <h1>বাংলা জোকস</h1>
+                <!--<a href="#" data-icon="grid" data-iconpos="notext" data-rel="page" data-transition="none" class="ui-btn-right">Info</a>-->
+                
+                <a href="Android_Version.rar" data-ajax="false" class="ui-btn-right">Download APK</a>
+                <div id="filterBasic-input-div">
+                    <input id='filterBasic-input' data-theme="b" type='search' placeholder='Search Category ...' name='search' class='searchbox-input' onkeyup='buttonUp();' required style='border:none;margin-bottom:none; background-color:#037967;'>
+                </div>
+            </div>
+
+            <div data-role="content">
+                    <div id="my-wrapper" data-role="navbar">
+                        <ul id='my-ul' data-filter='true' data-filter-placeholder='Search...' data-inset='false' data-input='#filterBasic-input'>
+
+            <!--<ul>--> <!-- Note : I have to add data file name in total jokes section after add new category from above -->
+                            <li class="cat-list"><a class="list-link" href="office.html" rel="external"><img src="images/categories/cat-img1.png" alt=""><br>অফিস</a></li>
+                            <li class="cat-list"><a class="list-link" href="khela.html" rel="external"><img src="images/categories/cat-img2.png" alt=""><br>খেলা</a></li>
+                            <li class="cat-list"><a class="list-link" href="gopalvar.html" rel="external"><img src="images/categories/cat-img3.png" alt=""><br>গোপাল ভাঁড়</a></li>
+                            <li class="cat-list"><a class="list-link" href="satroshikkhok.html" rel="external"><img src="images/categories/cat-img4.png" alt=""><br>ছাত্র-শিক্ষক</a></li>
+                            <li class="cat-list"><a class="list-link" href="daktarrogi.html" rel="external"><img src="images/categories/cat-img5.png" alt=""><br>ডাক্তার- রোগী</a></li>
+                            <li class="cat-list"><a class="list-link" href="nasirddinhojja.html" rel="external"><img src="images/categories/cat-img6.png" alt=""><br>নাসিরুদ্দিন হোজ্জা</a></li>
+                            <li class="cat-list"><a class="list-link" href="pachmishali.html" rel="external"><img src="images/categories/cat-img7.png" alt=""><br>পাঁচমিশালী</a></li>
+                            <li class="cat-list"><a class="list-link" href="lovejokes.html" rel="external"><img src="images/categories/cat-img8.png" alt=""><br>প্রেমিক- প্রেমিকা</a></li>
+                            <li class="cat-list"><a class="list-link" href="studyjokes.html" rel="external"><img src="images/categories/cat-img9.png" alt=""><br>পড়াশুনা</a></li>
+                            <li class="cat-list"><a class="list-link" href="drunk-jokes.html" rel="external"><img src="images/categories/cat-img10.png" alt=""><br>মদ ও মাতাল</a></li>
+                            <li class="cat-list"><a class="list-link" href="politics-jokes.html" rel="external"><img src="images/categories/cat-img11.png" alt=""><br>রাজনীতি</a></li>
+                            <li class="cat-list"><a class="list-link" href="husband-wife.html" rel="external"><img src="images/categories/cat-img12.png" alt=""><br>স্বামী-স্ত্রী</a></li>
+                            <li class="cat-list"><a class="list-link" href="guest.html" rel="external"><img src="images/categories/cat-img13.png" alt=""><br>অতিথি</a></li>
+                            <li class="cat-list"><a class="list-link" href="ayin-adalot.html" rel="external"><img src="images/categories/cat-img14.png" alt=""><br>আইন আদালত</a></li>
+                            <li class="cat-list"><a class="list-link" href="interview.html" rel="external"><img src="images/categories/cat-img15.png" alt=""><br>ইন্টারভিউ</a></li>
+                            <li class="cat-list"><a class="list-link" href="grihokorta-vritto.html" rel="external"><img src="images/categories/cat-img16.png" alt=""><br>গৃহকর্তা-ভৃত্য</a></li>
+                            <li class="cat-list"><a class="list-link" href="projukti.html" rel="external"><img src="images/categories/cat-img17.png" alt=""><br>প্রযুক্তি</a></li>
+                            <li class="cat-list"><a class="list-link" href="protibeshi.html" rel="external"><img src="images/categories/cat-img18.png" alt=""><br>প্রতিবেশী</a></li>
+                        </ul>
+                    </div><!-- /navbar -->
+            </div>
+
+            <div class="my-footer" data-role="footer" data-position="fixed">                 
+                <div data-role="navbar" data-iconpos="bottom"><ul><li><a class="footer-nav" href="#info" data-icon="info" id="btnFirst" onclick="totalJokes();"></a></li><li><a class="footer-nav" href="#" data-icon="delete" id="btnMiddle"></a></li><li><a class="footer-nav" href="#" rel="external" data-icon="search" id="btnLast"></a></li></ul></div>
+            </div>
+            
+        </div>
+        
+        
+        
+        
+        <!-- Info Box -->
+        <div data-role="page" data-theme="b" id="info" style="background-color: #021d08;">
+            <div data-role="header" class="my-header" data-position="fixed">
+                <img id="imgheadericon" src="images/logo.png" class="ui-btn-left"/>  
+                <h1>বাংলা জোকস</h1>
+            </div>
+
+            <div data-role="content">
+                    <div class="info-box" data-role="navbar">
+
+                        <div class="info-title">এপ্লিকেশনটি সম্পর্কে : </div> 
+                        <div class="info-desc">এই এপ্লিকেশনটি একটি বাংলা এপ্লিকেশন, যা যে কোন এন্ড্রয়েড প্লাটফর্মে ব্যবহার করা যাবে। অবশ্যই সেই ডিভাইসটিতে ইউনিকোড বাংলা সাপোর্টে-ড থাকতে হবে। <br> <br> এটি একটি বাংলা কৌতুক এপ্লিকেশন। ব্যবহারকারীর অফলাইনেই এই এপ্লিকেশনটি ব্যবহার করে কৌতুক পড়তে পারবে। <br> <br> বিভিন্ন সময় আমাদের হঠাৎ করেই এমন পরিস্থিতি চলে আসে যখন কাউকে আমরা কৌতুক বলতে চাচ্ছি বা কেউ আমাদের কাছ থেকে কৌতুক শুনতে চাচ্ছে, এমন পরিস্থিতির কথা ভেবেই আমি এই বাংলা কৌতুক পড়ার এপ্লিকেশনটি ডেভেলপ করেছি। বিশেষ করে আমার নিজেরই এমন পরিস্থিতি যখন তখন চলে আসে। <br> <br> ইচ্ছে আছে এক হাজার কৌতুকের সংগ্রহ থাকবে এখানে তবে জানি না কতটুকু ডাটা-এন্ট্রি করতে পারবো। <br> <br> আমি এই এপ্লিকেশনটি ডাইন্যামিক্যালি করেছি এই কথাটা ভেবেই যেন ডাটা-এন্ট্রি করতে কিছুটা সুবিধা পাওয়া যায়। ডাইনামিক বলতে এখানে পেইজে কোন ডাটা থাকবে না, সকল ডাটা থাকবে একটি এক্সএমএল ফাইলে আর সেখান থেকেই ডাটাগুলো পেজে যুক্ত হতে থাকবে। ডেটা-এন্ট্রি করা হলেই ডেটাটি বা ডেটাগুলি নিজে থেকেই পেইজটিতে যুক্ত হয়ে যাবে। </div> 
+                        
+                        <div class="info-title">এপ্লিকেশানটির ভার্সন :</div> 
+                        <div class="info-desc">১.০.০ (মার্চ, ২০১৫)</div>
+                        
+                        <div class="info-title">ডাটাবেজ ভার্সন :</div> 
+                        <div class="info-desc">১.০.০ (২২ মার্চ, ২০১৫)</div>
+                        
+                        <div class="info-title">এপ্লিকেশনটিতে মোট কৌতুকের সংখ্যা : </div> 
+                        <div class="info-desc totalcaj"></div>
+
+                        <div class="info-title">এন্ড্রয়েড ভার্সন : </div> 
+                        <div class="info-desc">এন্ড্রয়েড ৩.০</div> 
+
+                        <div class="info-desc">( বি. দ্র. যদিও আমি পরীক্ষা করে দেখেছি, এন্ড্রয়েড ৪.২ ভার্সনে এপ্লিকেশনটি ঠিকমতই ব্যবহার করা যায়। বাংলা ফন্টও ভালো আসে। তবুও এটি যেহেতু ডিভাইসটির ডিফল্ট বাংলা ফন্ট ব্যবহার করে ওপেন হবে, সেহেতু অবশ্যই ডিভাইসটি ভালো মানের বাংলা ইউনিকোড থাকতে হবে। ) </div>
+                        
+                        <div class="info-desc">Must need unicode Bangla supported android device. </div>  
+                        
+                        <div class="info-title">কৌতুকগুলো সংগ্রহ করা হয়েছে : </div>
+                        <div class="info-desc">
+                        বিভিন্ন ধরনের ওয়েবসাইট যেমন, <br>
+                        ১. বিডিজোকস ডট কম (http://bdjokes.com/) <br>
+                        ২. ইবাংলাজোকস ডট কম (http://www.ebanglajokes.com/) <br>
+                        এবং বইপত্র ও মানুষের মুখে শুনে।
+                        </div>
+                        
+                        <div class="info-title">ডেভেলপার সম্পর্কে : </div>
+                        <div class="info-desc">নাম : মোঃ রেজোয়ান সাকী এলিন। <br>
+                        গ্রাফিক্স ডিজাইনার, ওয়েব ডেভেলপার এবং এন্ড্রয়েড ডেভেলপার। <br>
+                        ওয়েবসাইট : http://www.alinsworld.com <br>
+                        ইমেইল : rezwansaki@gmail.com </div>
+                    </div><!-- /navbar -->
+            </div>
+
+            <div class="my-footer" data-role="footer" data-position="fixed">                 
+                <div data-role="navbar" data-iconpos="bottom"><ul><li><a class="footer-nav" href="#" data-icon="back" id="btnFirst" data-rel="back"></a></li></ul></div>
+            </div>
+
+        </div>
+        <!-- /Info Box -->
+        
+        <script>
+            
+            /* to hide and show the search category box */
+            var hidden = "true";
+            
+           $("#filterBasic-input-div").hide();
+            
+            $("#btnLast").click(function(){
+                if(hidden == "true"){
+                    $("#filterBasic-input-div").show();
+                    $("#filterBasic-input-div input").focus();
+                    hidden = "false";
+                } else {
+                    $("#filterBasic-input-div").hide();
+                    hidden = "true";
+                }
+            }); /* /to hide and show the search category box */
+            
+        </script>
+        
+    </body>
+
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<!--
+Application Name : 'Bangla Jokes'.
+Application Version : 1.0.0
+Developed Date : 14-January-2015
+Last Update : 14-January-2015 
+Cordova Version : Cordova 3.X
+Tested Device : 
+Tested OS : Android 4.x 
+Need to run : Bangla unicode font and Android OS 
+
+Developer's Infomration :
+Md. Rezwan Saki Alin
+http://www.alinsworld.com
+rezwansaki@gmail.com 
+-->
+<html>
+    <head>
+
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+        <title>অফিস</title>
+
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+        <!-- Intel XDK Essential -->
+        <script src="intelxdk.js"></script>         <!-- phantom library, needed for Intel XDK api calls -->
+        <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls -->
+        <script src="xhr.js"></script>              <!-- phantom library, needed for Intel XDK CORS -->
+
+        <script>
+            function onDeviceReady() {
+                if( navigator.splashscreen && navigator.splashscreen.hide ) {   // Cordova API detected
+                    navigator.splashscreen.hide() ;
+                }
+                if( window.intel && intel.xdk && intel.xdk.device ) {           // Intel XDK device API detected, but...
+                    if( intel.xdk.device.hideSplashScreen )                     // ...hideSplashScreen() is inside the base plugin
+                        intel.xdk.device.hideSplashScreen() ;
+                }
+            }
+            document.addEventListener("intel.xdk.device.ready", onDeviceReady, false) ;
+        </script>
+        <!-- /Intel XDK Essential -->
+        
+        <!-- ==================== My own JavaScript and CSS code =========================== -->
+
+        <!-- Exit function -->   
+        <!-- <script type="text/javascript">
+
+        function onLoad()
+        {
+        document.addEventListener("deviceready", onDeviceReady, true);
+        }
+
+        function exitFromApp()
+        {
+        navigator.app.exitApp();
+        }
+        </script>      -->   
+        
+        <style>
+            .ui-page-theme-b .my-header {
+                /*background-color: #03793a;*/
+                background: -webkit-linear-gradient(#05a550, #003c1c); /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(#05a550, #003c1c); /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(#05a550, #003c1c); /* For Firefox 3.6 to 15 */
+                background: linear-gradient(#05a550, #003c1c); /* Standard syntax (must be last) */
+                padding-bottom: 10px;
+            }
+
+            .ui-page-theme-b .my-header>.ui-title {
+                color: #6cf0dc;
+                padding: 8px 0 0 0;
+                margin: 0;
+                font-size: 20px;
+            }
+
+            .ui-page-theme-b .footer-nav {
+                /*background-color:#03793a;*/
+                background: -webkit-linear-gradient(#05a550, #003c1c); /* For Safari 5.1 to 6.0 */
+                background: -webkit-linear-gradient(#05a550, #003c1c); /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(#05a550, #003c1c); /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(#05a550, #003c1c); /* For Firefox 3.6 to 15 */
+                background: linear-gradient(#05a550, #003c1c); /* Standard syntax (must be last) */
+            }
+
+            .ui-page-theme-b .footer-nav:hover {
+                background-color:#069d4c;
+            }
+            
+
+            .ui-page-theme-b .ui-footer {
+                background-color: #03793a;
+                border-top: 1px #191c1c solid;
+                border-bottom : none;
+                border-left: none;
+                border-right : none;
+            }
+
+            .ui-page-theme-b .my-footer>.ui-title { 
+                color: #6cf0dc;
+                text-shadow: none;
+                padding: 5px 0 0 0;
+                margin: 0;
+                font-size: 15px;
+            }
+
+            .ui-page-theme-b .ui-input-search {
+                background-color: green;
+                margin: 10px 5%;
+            }
+
+            .ui-page-theme-b #my-wrapper { /* full body */
+                background-color: #043912;
+            }
+            
+            .ui-page-theme-b #my-ul li a {
+                background-color: #aceab5; /* listitem */
+                margin-bottom: 12px;
+                height: 92px;
+                padding: 10px;
+                border-radius: 8px;
+                color: #272727;
+                text-shadow: none;
+                font-weight: bold;
+                border: none;
+            }
+            
+            .ui-page-theme-b .ui-content { /* full body */
+                background-color: #043912;
+            }
+            
+            .ui-page-theme-b #info_content {
+                background-color: 043912;
+            }
+            
+            small { /* listitem data text from xml file */
+                color: #0e908b;
+                font-weight: normal;
+            }
+
+            #my-wrapper {
+                padding: 25px;
+            }
+
+            /* button */
+            .ui-page-theme-b .ui-icon-carat-l {
+                background-color: green;
+            }
+
+            .ui-page-theme-b .ui-icon-carat-l:hover {
+                background-color: #058e05;
+            }
+            
+            .ui-page-theme-b .ui-icon-back {
+                background-color: green;
+            }
+
+            .ui-page-theme-b .ui-icon-back:hover {
+                background-color: #058e05;
+            }
+            
+            .ui-page-theme-b .ui-icon-grid {
+                background-color: green;
+            }
+
+            .ui-page-theme-b .ui-icon-grid:hover {
+                background-color: #058e05;
+            }
+
+            .ui-page-theme-b .ui-icon-delete {
+                background-color: green;
+            }
+
+            .ui-page-theme-b .ui-icon-delete:hover {
+                background-color: #058e05;
+            }
+            
+            .ui-page-theme-b .ui-header .ui-icon-delete {
+                background-color: green;
+            }
+
+            .ui-page-theme-b .ui-header .ui-icon-delete:hover {
+                background-color: #058e05;
+            }
+            
+            /* Footer list button */
+            .ui-page-theme-b #btnFirst {
+                background-color: #03793a;
+            }
+            .ui-page-theme-b #btnFirst:hover {
+                background-color: #069d4c;
+            }
+            
+            .ui-page-theme-b #btnMiddle {
+                background-color: #03793a;
+            }
+            .ui-page-theme-b #btnMiddle:hover {
+                background-color: #069d4c;
+            }
+            
+            .ui-page-theme-b #btnLast {
+                background-color: #03793a;
+            }
+            .ui-page-theme-b #btnLast:hover {
+                background-color: #069d4c;
+            } 
+            
+            .ui-page-theme-b #btnFirstDetails {
+                background-color: #03793a;
+            }
+            .ui-page-theme-b #btnFirstDetails:hover {
+                background-color: #069d4c;
+            }
+
+            .ui-page-theme-b #btnMiddleDetails {
+                background-color: #03793a;
+            }
+            .ui-page-theme-b #btnMiddleDetails:hover {
+                background-color: #069d4c;
+            }
+
+            .ui-page-theme-b #btnLastDetails {
+                background-color: #03793a;
+            }
+            .ui-page-theme-b #btnLastDetails:hover {
+                background-color: #069d4c;
+            }/* /Footer list button */
+            /* /button */
+        </style>
+        <!-- ==================== /My own JavaScript and CSS code =========================== -->
+   
+    </head>
+
+    <body>
+        
+        <!-- ====================== Essential to load xml doc ==================================== -->
+
+        <!-- load xml doc -->
+        <script>
+            function loadXMLDoc(filename)
+            {
+                if (window.XMLHttpRequest)
+                {
+                    xhttp=new XMLHttpRequest();
+                }
+                else // code for IE5 and IE6
+                {
+                    xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xhttp.open("GET",filename,false);
+                xhttp.send();
+                return xhttp.responseXML;
+            } 
+        </script> <!-- /load xml doc -->
+
+        <!-- ====================== Essential to load xml doc ==================================== -->
+
+
+        <!-- ============ Get data from XMl File and display Title as a List dynamically ============================= -->
+        <script>
+            xmlDoc=loadXMLDoc("data/office.xml");
+
+            x=xmlDoc.getElementsByTagName("jokes");
+            
+            y=xmlDoc.getElementsByTagName("title"); 
+            yy=xmlDoc.getElementsByTagName("content"); 
+            yyy=xmlDoc.getElementsByTagName("id"); 
+
+            document.write("<div data-role='page' data-theme='b' id='page1'>");
+            
+            document.write("<div class='my-header' data-role='header' data-position='fixed'>");
+            
+            document.write("<img id='imgheadericon' src='images/logo.png' class='ui-btn-left'/>");  
+            document.write("<h1>");
+            document.write("অফিস");
+            document.write("</h1>");
+            document.write("<a href='#' data-icon='carat-l' data-iconpos='notext' data-rel='back' data-transition='fade' class='ui-btn-right'>Menu</a>");
+
+            document.write("<form class='searchbox'><input id='filterBasic-input' type='search' placeholder='Search......' name='search' class='searchbox-input' onkeyup='buttonUp();' required style='border:none;margin-bottom:none;'></form>");
+            document.write("</div>");
+            
+
+            document.write("<div id='my-wrapper' data-role='content' data-theme='b'>");
+            document.write("<ul id='my-ul' data-role='listview' data-filter='true' data-filter-placeholder='Search...' data-inset='false' data-input='#filterBasic-input'>");
+            var totaldata=0;
+            
+            for (i=0;i<y.length;i++)
+            {
+                /* search a alien type character and replace with html tag '<br />' to create a new line */
+                var re = /%%%newline%%%/gi;
+                var str = yy[i].childNodes[0].nodeValue;
+                var newstr = str.replace(re, "<br/>");                
+                /* /search a alien type character and replace with html tag '<br />' to create a new line */
+                
+                document.write("<li class='listitem' data-icon='false'>");
+                document.write("<a href='#details' style='padding:10px 10px 15px 10px;'>");
+                document.write(y[i].childNodes[0].nodeValue);
+                document.write("<br>");
+                
+                document.write("<small>" + newstr + "<br></small>"); /* to create a new line */
+                
+                document.write("<div style='display:none;'>" + yyy[i].childNodes[0].nodeValue + "</div>"); /* to hide some of information */
+                
+                document.write("</a>");
+                document.write("</li>");
+                totaldata = totaldata + 1;
+            }
+            document.write("</ul>");
+            document.write("</div>"); /* /content */
+
+            document.write("<div class='my-footer' data-role='footer' data-position='fixed'>");
+            document.write("<div data-role='footer'><div data-role='navbar' data-iconpos='bottom'><ul><li><a class='footer-list footer-nav' href='index.html' rel='external' data-icon='home' id='btnMiddle'></a></li><li><a class='footer-nav ui-shadow ui-btn ui-corner-all ui-btn-inline info' href='#info' data-icon='info' data-transition='pop' id='btnLast'></a></li></ul></div></div>");
+            document.write("</div>"); /* /footer */
+
+            document.write("</div>"); /* /page */ 
+        </script>
+        
+        
+        
+        <!-- Info -->
+        <script>
+            $( ".info" ).click(function() {
+                /* display value of totaldata variable in Bangla language */
+                bang_number = ""; //to solve double number problem like 1010 or, 10101010 
+                en_number = "'" + totaldata + "'";
+
+                en_number_current1 = "''" + en_number_current + "'";  
+                
+                var infoTextFirst = "এই ক্যাটেগরীতে মোট জোকস রয়েছে : ";
+                var infoTextLast = " টি।";
+                
+                $(".totaldata").html(infoTextFirst + en_to_ben_number_conversion(en_number) + infoTextLast);
+                /* display value of totaldata variable in Bangla language */
+            });
+        </script>
+        <div data-role="page" data-theme="b" id="info" style="background-color:#043912;">
+                <div data-theme="b" data-role="header" role="banner" class="my-header ui-header ui-bar-b" data-position="fixed">
+                    <a href="#" class="info-header ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-left" data-rel="back">Close</a>
+                    <h1 class="ui-title" role="heading" aria-level="1">তথ্য</h1>
+                </div> 
+
+                <div class="ui-content" id="info_content" role="content" aria-level="1">
+                    <div><p>এটি একটি অফিস জোকস ক্যাটেগরি। এখানে বাংলাতে সকল জোকস থাকবে যা অফিস সংক্রান্ত।</p></div>
+                    <div class="totaldata"></div>
+                </div> <!-- /content -->
+
+        </div><!-- /page -->
+        <!-- /Info -->
+        <!-- ============ Get data from XMl File and display Title as a List dynamically ============================= -->
+        
+<script>
+    var bang_number = '';
+    function en_to_ben_number_conversion(en_number) {
+        for (var i = 0; i < en_number.length; i++) {
+
+            if (en_number[i] == "0")
+                bang_number = bang_number + '০';
+            if (en_number[i] == "1")
+                bang_number = bang_number + '১';
+            if (en_number[i] == "2")
+                bang_number = bang_number + '২';
+            if (en_number[i] == "3")
+                bang_number = bang_number + '৩';
+            if (en_number[i] == "4")
+                bang_number = bang_number + '৪';
+            if (en_number[i] == "5")
+                bang_number = bang_number + '৫';
+            if (en_number[i] == "6")
+                bang_number = bang_number + '৬';
+            if (en_number[i] == "7")
+                bang_number = bang_number + '৭';
+            if (en_number[i] == "8")
+                bang_number = bang_number + '৮';
+            if (en_number[i] == "9")
+                bang_number = bang_number + '৯';
+        }
+
+        return bang_number;
+    }
+    
+    
+    var bang_number_current = '';
+    function en_to_ben_number_conversionCurrent(en_number_current) {
+        for (var i = 0; i < en_number.length; i++) {
+
+            if (en_number_current[i] == "0")
+                bang_number_current = bang_number_current + '০';
+            if (en_number_current[i] == "1")
+                bang_number_current = bang_number_current + '১';
+            if (en_number_current[i] == "2")
+                bang_number_current = bang_number_current + '২';
+            if (en_number_current[i] == "3")
+                bang_number_current = bang_number_current + '৩';
+            if (en_number_current[i] == "4")
+                bang_number_current = bang_number_current + '৪';
+            if (en_number_current[i] == "5")
+                bang_number_current = bang_number_current + '৫';
+            if (en_number_current[i] == "6")
+                bang_number_current = bang_number_current + '৬';
+            if (en_number_current[i] == "7")
+                bang_number_current = bang_number_current + '৭';
+            if (en_number_current[i] == "8")
+                bang_number_current = bang_number_current + '৮';
+            if (en_number_current[i] == "9")
+                bang_number_current = bang_number_current + '৯';
+        }
+
+        return bang_number_current;
+    }
+</script>
+       
+        <!-- click to get index of list item -->
+        <script>
+            var en_number_current;
+            var en_number_current1;
+            var index; /* globar variable, because it is out of the function */
+            $( ".listitem" ).click(function() {
+                index = $( ".listitem" ).index( this );
+                j= index; //click and get index of listview item and store the variable 'j'         
+
+                t=xmlDoc.getElementsByTagName("title"); 
+                t1=t[j].childNodes[0].nodeValue; //get details data of any record             */
+
+                a=xmlDoc.getElementsByTagName("content"); //get 'content' data from xml file and store 'z' variable 
+                
+                /* search a alien type character and replace with html tag '<br />' to create a new line */
+                var re = /%%%newline%%%/gi;
+                var str = a[j].childNodes[0].nodeValue;
+                var newstr = str.replace(re, "<br/>");
+                /* /search a alien type character and replace with html tag '<br />' to create a new line */
+                
+
+                $(".title").html(t1); /* select a class and post a vaule of a variable in a html element */
+                $(".content").html(newstr); /* select a class and post a vaule of a variable in a html element */
+                
+                /* display value of totaldata variable in Bangla language */
+                bang_number = ""; //to solve double number problem like 1010 or, 10101010 
+                en_number = "'" + totaldata + "'";
+                
+                bang_number_current = ""; //to solve double number problem like 1010 or, 10101010 
+                en_number_current = j+1; //to store data as number or numeric value 
+                en_number_current1 = "'" + en_number_current + "'";  
+                
+                
+                $(".totaldata").html(en_to_ben_number_conversionCurrent(en_number_current1) + "/" + en_to_ben_number_conversion(en_number)); 
+                /* display value of totaldata variable in Bangla language */
+            }); 
+        </script>
+        
+        
+        <!-- /click to get index of list item -->
+
+        <div data-role="page" data-theme="b" id="details" style="background-color: #043912;">
+            <div data-role="header" class="my-header" data-position="fixed">
+                <a href="#" class="ui-btn ui-btn-corner-all ui-shadow ui-icon-back ui-btn-icon-left ui-btn-icon-notext" data-rel="back">Back</a>
+                <h1>অফিস</h1>
+            </div>
+
+            <div data-role="content">
+                <div class="listitem totaldata" style="text-align:center;font-size:14px; background-color: #aeebcd;margin:5px; padding:5px; height=auto; border-radius: 8px; color: #0e908b; text-shadow: none;"></div>
+                    
+                <div class="listitem title" style="text-align:center;font-size:18px;font-weight:bold;padding-bottom:5px; background-color: #aeebcd;margin:5px; padding:5px; height=auto; border-radius: 8px; color: #0e908b; text-shadow: none;">
+                </div>
+                    
+                    <div class="listitem content" style="font-size:15px;color:#067150; background-color: #fff;margin:5px; padding:10px; height=auto; border-radius: 8px; color: #0e908b; text-shadow: none;"></div>
+            </div>
+
+            <div class="my-footer" data-role="footer" data-position="fixed">                 
+                <div data-role="navbar" data-iconpos="bottom" style="background-color: #03793a;
+                                                                     border-top: 1px #191c1c solid;
+                                                                     border-bottom : none;
+                                                                     border-left: none;
+                                                                     border-right : none;">
+                    <ul>
+                        <li><a class="btnprev footer-nav" href="#" data-icon="carat-l" id="btnFirstDetials"></a>
+                        </li><li><a class="footer-nav" href="index.html" rel="external" data-icon="home" id="btnMiddleDetails"></a></li>
+                        <li><a class="btnnext footer-nav" href="#" data-icon="carat-r" id="btnLastDetila"></a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Go next and previous record -->
+            <script> //go previous record 
+                $( ".btnprev" ).click(function() {
+                    index = index - 1;
+
+                    /* display value of totaldata variable in Bangla language */
+                    bang_number = ""; //to solve double number problem like 1010 or, 10101010 
+                    en_number = "'" + totaldata + "'";
+
+                    bang_number_current = ""; //to solve double number problem like 1010 or, 10101010 
+                    en_number_current = index+1; //to store data as number or numeric value 
+                    
+                    if (en_number_current<1){
+                        en_number_current = totaldata;
+
+                        //alert("This is first data for this category.");
+                    }
+                    
+                    en_number_current1 = "'" + en_number_current + "'";  
+
+
+                    $(".totaldata").html(en_to_ben_number_conversionCurrent(en_number_current1) + "/" + en_to_ben_number_conversion(en_number)); 
+                    /* display value of totaldata variable in Bangla language */
+                    
+                    
+                    if (index<0){
+                        index = totaldata-1; 
+                        
+                        //alert("This is first data for this category.");
+                    }
+                    j= index; //click and get index of listview item and store the variable 'j' 
+
+                    t=xmlDoc.getElementsByTagName("title"); 
+                    t1=t[j].childNodes[0].nodeValue; //get details data of any record             */
+
+                    a=xmlDoc.getElementsByTagName("content"); //get 'content' data from xml file and store 'z' variable 
+                    
+                    /* search a alien type character and replace with html tag '<br />' to create a new line */
+                    var re = /%%%newline%%%/gi;
+                    var str = a[j].childNodes[0].nodeValue;
+                    var newstr = str.replace(re, "<br/>");
+                    /* /search a alien type character and replace with html tag '<br />' to create a new line */
+
+                    y=xmlDoc.getElementsByTagName("id"); 
+                    y1=y[j].childNodes[0].nodeValue; //get details data of any record             */
+                    
+                    $(".title").html(t1); /* select a class and post a vaule of a variable in a html element */
+                    $(".content").html(newstr); /* select a class and post a vaule of a variable in a html element */
+                    $(".id").html(y1); /* select a class and post a vaule of a variable in a html element */
+                }); 
+            </script>
+            
+            <script> //go next record 
+                $( ".btnnext" ).click(function() {
+                    index = index + 1;
+
+                   
+                  
+                    
+                    /* display value of totaldata variable in Bangla language */
+                    bang_number = ""; //to solve double number problem like 1010 or, 10101010 
+                    en_number = "'" + totaldata + "'";
+
+                    bang_number_current = ""; //to solve double number problem like 1010 or, 10101010 
+                    en_number_current = index+1; //to store data as number or numeric value 
+
+                    if (en_number_current>totaldata){
+                        en_number_current = 1;
+
+                        //alert("This is first data for this category.");
+                    }
+
+                    en_number_current1 = "'" + en_number_current + "'";  
+
+
+                    $(".totaldata").html(en_to_ben_number_conversionCurrent(en_number_current1) + "/" + en_to_ben_number_conversion(en_number)); 
+                    /* display value of totaldata variable in Bangla language */
+
+                    
+                    
+                    
+
+                    if (index == totaldata){
+                        index = 0;
+
+                        //alert("This is first data for this category.");
+                    }
+                    j= index; //click and get index of listview item and store the variable 'j' 
+
+                    t=xmlDoc.getElementsByTagName("title"); 
+                    t1=t[j].childNodes[0].nodeValue; //get details data of any record             */
+
+                    a=xmlDoc.getElementsByTagName("content"); //get 'content' data from xml file and store 'z' variable 
+                    
+                    /* search a alien type character and replace with html tag '<br />' to create a new line */
+                    var re = /%%%newline%%%/gi;
+                    var str = a[j].childNodes[0].nodeValue;
+                    var newstr = str.replace(re, "<br/>");
+                    /* /search a alien type character and replace with html tag '<br />' to create a new line */
+
+                    y=xmlDoc.getElementsByTagName("id"); 
+                    y1=y[j].childNodes[0].nodeValue; //get details data of any record             */
+
+                    $(".title").html(t1); /* select a class and post a vaule of a variable in a html element */
+                    $(".content").html(newstr); /* select a class and post a vaule of a variable in a html element */
+                    $(".id").html(y1); /* select a class and post a vaule of a variable in a html element */
+                }); 
+            </script>
+            <!-- /Go next and previous record -->
+        </div>
+        
+    </body>
+
+</html>
